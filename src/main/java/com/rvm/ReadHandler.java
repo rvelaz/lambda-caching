@@ -53,7 +53,7 @@ public class ReadHandler implements RequestHandler<Map<String, Object>, ApiGatew
             try {
 
                 String fileName = "sample.data";
-                LOG.debug("About to read file from bucket" + bucketName + ". Adding a 5s delay");
+                LOG.debug("About to read file from bucket" + bucketName + ". Adding a 5s delay just to simulate a long operation");
                 Thread.sleep(5000);
                 S3Object object = s3client.getObject(bucketName, fileName);
                 InputStream objectData = object.getObjectContent();

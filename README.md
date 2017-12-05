@@ -1,14 +1,14 @@
 
 # Lambda in-memory caching
 
-A class variable can be used to to in-memory caching. Each instance of the AWS Lambda function will have its own copy of
+A class variable can be used to do in-memory caching. Each instance of the AWS Lambda function will have its own copy of
 the class variable, which means that if there a re multiple concurrent requests, each lambda instance will have to fetch
 data and populate its caching.
 
 
 # Cold starts
 
-To avoid cold starts and having to re-populate the in-memory cache, the functions are invoked on a schedule basis.
+To avoid cold starts and having to re-populate the in-memory cache, the functions are invoked on a scheduled basis.
 
 
 
@@ -28,9 +28,10 @@ npm install
 # Configure AWS keys
 The user should have admin access
 
+```
 export AWS_ACCESS_KEY_ID=<your-key-here>
 export AWS_SECRET_ACCESS_KEY=<your-secret-key-here>
-
+```
 
 # Deploy app
 
@@ -42,7 +43,7 @@ sls deploy
 
 This will output something like:
 
-````
+```
 Service Information
 service: in-memory-caching
 stage: dev
@@ -55,7 +56,6 @@ endpoints:
 functions:
   setup: in-memory-caching-dev-setup
   read: in-memory-caching-dev-read
-
 ```
 
 # Create sample data
