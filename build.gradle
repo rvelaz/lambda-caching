@@ -1,0 +1,41 @@
+apply plugin: 'java'
+apply plugin: 'groovy'
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    compile (
+        'org.codehaus.groovy:groovy-all:2.4.9',
+        'com.amazonaws:aws-java-sdk-s3:1.11.241',
+        'com.amazonaws:aws-lambda-java-core:1.1.0',
+        'com.amazonaws:aws-lambda-java-log4j:1.0.0',
+        'com.fasterxml.jackson.core:jackson-core:2.8.5',
+        'com.fasterxml.jackson.core:jackson-databind:2.8.5',
+        'com.fasterxml.jackson.core:jackson-annotations:2.8.5'
+    )
+    testCompile (
+            'org.spockframework:spock-core:1.1-groovy-2.4',
+            'cglib:cglib-nodep:3.2.5',
+            'org.objenesis:objenesis:2.5.1'
+    )
+}
+
+task buildZip(type: Zip) {
+    baseName = "caching-dev"
+    from compileJava
+    from processResources
+    into('lib') {
+        from configurations.runtime
+    }
+}
+
+build.dependsOn buildZip
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.0'
+}

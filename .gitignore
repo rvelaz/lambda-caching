@@ -1,0 +1,20 @@
+*.class
+.gradle
+/build/
+/bin/
+/.settings/
+.project
+.classpath
+node_modules/
+
+# Package Files
+*.jar
+
+#Intellij
+*.iml
+*.ipr
+*.iws
+
+# Serverless directories
+.serverless
+

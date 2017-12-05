@@ -1,0 +1,54 @@
+service: in-memory-caching # NOTE: update this with your service name
+
+#plugins:
+#  - serverless-plugin-warmup
+
+provider:
+  name: aws
+  runtime: java8
+  stage: dev
+  region: eu-west-1
+  timeout: 300
+
+  environment:
+    REGION: 'eu-west-1'
+    DATA_BUCKET: 'rvm-memory-caching-'
+
+  #Read access from lambda functions to bucket
+  iamRoleStatements:
+    -  Effect: "Allow"
+       Action:
+         - "s3:*"
+       Resource:
+           - "arn:aws:s3:::${self:provider.environment.DATA_BUCKET}*"
+           - "arn:aws:s3:::${self:provider.environment.DATA_BUCKET}*/*"
+
+package:
+  artifact: build/distributions/caching-${self:provider.stage}.zip
+
+functions:
+  #This just creates a bucket and a file in it with some content
+  setup:
+    handler: com.rvm.SetupHandler
+    events:
+      - http:
+          path: setup/{id}
+          method: POST
+          request:
+            parameters:
+              paths:
+                id: true
+
+  read:
+    #Reads from a file and adds to in-memory caching
+    handler: com.rvm.ReadHandler
+    warmup: true
+    events:
+      - http:
+          path: data/{id}/{key}
+          method: GET
+          request:
+            parameters:
+              paths:
+                id: true
+                key: true

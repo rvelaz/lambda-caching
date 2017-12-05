@@ -1,0 +1,14 @@
+{
+  "name": "rvm",
+  "version": "1.0.0",
+  "description": "A class variable can be used to to in-memory caching. Each instance of the AWS Lambda function will have its own copy of the class variable, which means that if there a re multiple concurrent requests, each lambda instance will have to fetch data and populate its caching.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "serverless-plugin-warmup": "^3.3.0-rc.1"
+  }
+}
