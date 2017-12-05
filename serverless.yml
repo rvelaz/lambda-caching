@@ -1,7 +1,7 @@
 service: in-memory-caching # NOTE: update this with your service name
 
-#plugins:
-#  - serverless-plugin-warmup
+plugins:
+  - serverless-plugin-warmup
 
 provider:
   name: aws
